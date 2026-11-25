@@ -1,5 +1,5 @@
-<!-- README.md | Vitalia Kit v0.0.1 | 24-11-2026 21:53(GMT-04:00) -->
-**README.md | Vitalia Kit v0.0.1 | 24-11-2026 21:53(GMT-04:00)**
+<!-- README.md | Vitalia Kit v0.0.1 | 24-11-2026 21:57(GMT-04:00) -->
+**README.md | Vitalia Kit v0.0.1 | 24-11-2026 21:57(GMT-04:00)**
 
 # Data Storage Dashboard — Nível 0
 
@@ -7,7 +7,7 @@
 
 | Categoria | Itens | Link |
 |-----------|-------|------|
-| context | 5 | [context](./context/README.md) |
+| context | 6 | [context](./context/README.md) |
 | handoffs | 0 | [handoffs](./handoffs/README.md) |
 | diagnostics | 0 | diagnostics |
 | research | 0 | [research](./research/README.md) |
@@ -18,6 +18,6 @@
 | reviews | 0 | [reviews](./reviews/README.md) |
 | specs | 0 | [specs](./specs/README.md) |
 
-**Total**: 5 itens em 10 categorias.
+**Total**: 6 itens em 10 categorias.
 
-*Gerado em 24-11-2026 21:53(GMT-04:00) — Vitalia Kit v0.0.1*
+*Gerado em 24-11-2026 21:57(GMT-04:00) — Vitalia Kit v0.0.1*
