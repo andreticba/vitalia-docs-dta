@@ -1,0 +1,24 @@
+[25-11-2026 19:09:22(GMT-04:00)] ============================================================
+[25-11-2026 19:09:22(GMT-04:00)]   Instalação Vitalia Kit v0.0.1
+[25-11-2026 19:09:22(GMT-04:00)]   Projeto: /home/andre/projetos/assistidos/vitalia-docs
+[25-11-2026 19:09:22(GMT-04:00)] ============================================================
+[25-11-2026 19:09:22(GMT-04:00)] [1/8] Validação do ambiente, git e runtime isolado (.venv)
+[25-11-2026 19:09:22(GMT-04:00)]    ✅ KIT_DIR: /home/andre/.vitalia-kit
+[25-11-2026 19:09:22(GMT-04:00)]    ✅ KIT_PYTHON: /home/andre/.vitalia-kit/.venv/bin/python3
+[25-11-2026 19:09:22(GMT-04:00)] [2/8] Preparação da estrutura .vitalia/ (feature.json, extensions.yml e memória)
+[25-11-2026 19:09:22(GMT-04:00)] [3/8] Coleta e reconciliação de repositórios Git (session_repo / data_repo)
+[25-11-2026 19:09:22(GMT-04:00)]    ℹ️  Configuração atual detectada para sessão: git@github.com:andreticba/vitalia-docs-cntx.git
+[25-11-2026 19:09:22(GMT-04:00)]    ✅ Mantendo configuração atual de sessão: git@github.com:andreticba/vitalia-docs-cntx.git
+[25-11-2026 19:09:22(GMT-04:00)]    ℹ️  Configuração atual detectada para dados: git@github.com:andreticba/vitalia-docs-dta.git
+[25-11-2026 19:09:22(GMT-04:00)]    ✅ Mantendo configuração atual de dados: git@github.com:andreticba/vitalia-docs-dta.git
+[25-11-2026 19:09:22(GMT-04:00)] [4/8] Provisionamento de .vitalia/memory/session/
+[25-11-2026 19:09:22(GMT-04:00)]    ✅ Repositório de sessão pronto em /home/andre/projetos/assistidos/vitalia-docs/.vitalia/memory/session
+[25-11-2026 19:09:22(GMT-04:00)] [5/8] Provisionamento de .vitalia/memory/data_storage/
+[25-11-2026 19:09:22(GMT-04:00)]    ✅ Repositório de dados pronto em /home/andre/projetos/assistidos/vitalia-docs/.vitalia/memory/data_storage
+[25-11-2026 19:09:22(GMT-04:00)] [6/8] Gravação de .vitalia/config.yml e regras idempotentes de .gitignore
+[25-11-2026 19:09:23(GMT-04:00)]    ✅ config.yml e .gitignore atualizados.
+[25-11-2026 19:09:23(GMT-04:00)] [7/8] Materialização de skills, manifesto SHA-256 e .agents/AGENTS.md
+Skills geradas com sucesso: 34
+[25-11-2026 19:09:23(GMT-04:00)]    ✅ Skills e manifesto sincronizados.
+[25-11-2026 19:09:23(GMT-04:00)] [8/8] Auditoria pós-instalação e conclusão
+[25-11-2026 19:09:23(GMT-04:00)] ✅ Vitalia Kit v0.0.1 instalado com sucesso no projeto: /home/andre/projetos/assistidos/vitalia-docs
