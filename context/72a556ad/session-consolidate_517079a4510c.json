@@ -1,0 +1,320 @@
+{
+  "description": "Consolida shards, renderiza README visual do contexto e pipeline 1A/2A + git push.",
+  "context": {
+    "reads": [
+      ".vitalia/memory/data_storage/"
+    ],
+    "writes": [
+      ".vitalia/memory/session/",
+      ".vitalia/memory/data_storage/"
+    ]
+  },
+  "guardian": {
+    "guardian_profile": "gp_session-consolidate",
+    "prompt": "# /vitalia-session-consolidate — Consolida shards, renderiza README visual do contexto e pipeline 1A/2A + git push.\n\n## Missão Operacional\nConsolidar shards e renderizar README. Pipeline 1A: Motor → list-pending-domains → GroundingRenderer.\n\n## Diretrizes de Execução\n1. Opere estritamente sob os princípios constitucionais e `phase_guardrails` injetados no envelope §11.\n2. Registre entregas e evidências de forma atômica respeitando a separação de 3 camadas e os portões HITL.\n\n### Protocolo de Grounding (P03)\nPara qualquer busca web ou verificação externa, delegue exclusivamente ao subagente `vitalia-researcher` (`define_subagent` com `EnableWriteTools: true`), aguardando `GROUNDING_AUDIT.md`, confirmação HTTP 200 e handoff reverso antes da síntese (override apenas mediante comando literal explícito do usuário).\n",
+    "yaml_sources": [
+      "constitution"
+    ],
+    "hardware_profile": "frontier"
+  },
+  "hooks": {
+    "after": [],
+    "before": [
+      "{{KIT_PYTHON}} {{VITALIA_KIT_DIR}}/src/hooks/scan_environment.py"
+    ]
+  },
+  "meta": {
+    "domain_gates": [],
+    "hardware_profile": "frontier",
+    "version": "0.0.1"
+  },
+  "scripts": {
+    "consolidate": "{{KIT_PYTHON}} {{VITALIA_KIT_DIR}}/src/vitalia_context_engine.py --action consolidate --cwd {{PROJECT_ROOT}}"
+  },
+  "tools": {
+    "optional": [
+      "define_subagent",
+      "invoke_subagent"
+    ],
+    "required": [
+      "read_file",
+      "write_file",
+      "run_command"
+    ]
+  },
+  "transport": {
+    "preferred": "filesystem",
+    "session_shard": true
+  },
+  "guardian_json": {
+    "schema_version": "0.0.1",
+    "workflow": "session-consolidate",
+    "timestamp": "25-11-2026 20:00:44(GMT-04:00)",
+    "sources": {
+      "constitution": {
+        "schema_type": "constitution",
+        "schema_version": "0.0.1",
+        "domain_index": {
+          "PURPOSE": [
+            "P00"
+          ],
+          "GOVERNANCE": [
+            "P01",
+            "P02",
+            "P05"
+          ],
+          "GROUNDING": [
+            "P03"
+          ],
+          "INFRASTRUCTURE": [
+            "P04",
+            "P16"
+          ],
+          "SECRETS": [
+            "P06"
+          ],
+          "PRIVACY_DATA_VAULT": [
+            "P07"
+          ],
+          "AGENT_SECURITY": [
+            "P08",
+            "P12",
+            "P13"
+          ],
+          "DIDACTIC_ENGINEERING": [
+            "P10"
+          ],
+          "HARDWARE_AGNOSTICISM": [
+            "P11"
+          ],
+          "OBSERVABILITY": [
+            "P15"
+          ]
+        },
+        "principles": {
+          "P00": {
+            "name": "Purpose Arbiter — Human Wellbeing First",
+            "domain": "PURPOSE",
+            "severity": "BLOCKING",
+            "rule": "Toda decisão técnica serve ao bem-estar de quem usa, de quem cuida e de quem constrói.",
+            "validator": "manual"
+          },
+          "P01": {
+            "name": "SDD Pipeline Inviolability",
+            "domain": "GOVERNANCE",
+            "severity": "BLOCKING",
+            "rule": "A implementação de código ocorre exclusivamente sobre tasks.md aprovado e auditado (specify -> plan -> tasks -> implement -> converge).",
+            "validator": "/vitalia-task-verifier"
+          },
+          "P02": {
+            "name": "User-Centric Validation & Impact Declaration",
+            "domain": "GOVERNANCE",
+            "severity": "WARNING",
+            "rule": "Toda proposta técnica declara o impacto ao usuário final (Multi-Tenancy, RBAC, Privacidade, Performance, Input Validation).",
+            "validator": "hooks/guardian_context.py"
+          },
+          "P03": {
+            "name": "External Verification Protocol (Grounding)",
+            "domain": "GROUNDING",
+            "severity": "WARNING",
+            "rule": "Toda citação externa exige confirmação HTTP 200, leitura integral e Rastro de Pesquisa auditável na Camada 3.",
+            "validator": "hooks/guardian_context.py"
+          },
+          "P04": {
+            "name": "Timestamp & GMT-04:00 Integrity",
+            "domain": "INFRASTRUCTURE",
+            "severity": "WARNING",
+            "rule": "Todo arquivo criado ou modificado contém cabeçalho Vitalia Kit v{VERSION} com fuso imutável America/Cuiaba (GMT-04:00): '# <arquivo> | Vitalia Kit v{VERSION} | DD-MM-YYYY HH:MM(GMT-04:00)' em código/config e 2 linhas em Markdown ('<!-- <arquivo> | Vitalia Kit v{VERSION} | DD-MM-YYYY HH:MM(GMT-04:00) -->' e '**<arquivo> | Vitalia Kit v{VERSION} | DD-MM-YYYY HH:MM(GMT-04:00)**').",
+            "validator": "maintenance/header_stamp.py"
+          },
+          "P05": {
+            "name": "Test-First Development & Behavioral Falsification Matrix (TDD Inviolável)",
+            "domain": "GOVERNANCE",
+            "severity": "BLOCKING",
+            "rule": "Nenhuma lógica produtiva ou contrato é alterado sem teste comportamental executável classificado na Matriz de 4 Modalidades ([TEST:NEW], [TEST:BUGFIX], [TEST:REFACTOR], [TEST:MIGRATION]) com Cenário de Falsificação.",
+            "validator": "/vitalia-judge"
+          },
+          "P06": {
+            "name": "Secrets Governance & Vault Storage",
+            "domain": "SECRETS",
+            "severity": "BLOCKING",
+            "rule": "Credenciais residem exclusivamente em .env protegidos ou cofres seguros; saídas e logs são sanitizados.",
+            "validator": "manual"
+          },
+          "P07": {
+            "name": "Privacy by Design & Data Vault",
+            "domain": "PRIVACY_DATA_VAULT",
+            "severity": "BLOCKING",
+            "rule": "Dados sensíveis criptografados em repouso, logs sanitizados e queries isoladas por tenant.",
+            "validator": "/vitalia-judge"
+          },
+          "P08": {
+            "name": "Smart Routing & Minimum Privilege per Agent",
+            "domain": "AGENT_SECURITY",
+            "severity": "INFO",
+            "rule": "Agentes operam sob menor privilégio (default-deny — OWASP LLM06:2025).",
+            "validator": "hooks/guardian_context.py"
+          },
+          "P10": {
+            "name": "Didactics-First & Automation as Guardian",
+            "domain": "DIDACTIC_ENGINEERING",
+            "severity": "WARNING",
+            "rule": "100% dos scripts Python implementam --help didático com exemplos.",
+            "validator": "/vitalia-judge"
+          },
+          "P11": {
+            "name": "Hardware-Agnostic LLM Routing, Data Contracts & Machine Identity",
+            "domain": "HARDWARE_AGNOSTICISM",
+            "severity": "BLOCKING",
+            "rule": "Modelos LLM via variáveis de ambiente; schemas em OpenAPI 3.0 limpo (sem $schema, title raiz ou additionalProperties: false); machine_id SHA256[:8].",
+            "validator": "manual"
+          },
+          "P12": {
+            "name": "Agent Security — Prompt Injection & Output Validation",
+            "domain": "AGENT_SECURITY",
+            "severity": "BLOCKING",
+            "rule": "Todo input é potencialmente malicioso (OWASP LLM01:2025); validar caminhos, schemas e evitar stack trace para o cliente.",
+            "validator": "/vitalia-judge"
+          },
+          "P13": {
+            "name": "API Safety Gate",
+            "domain": "AGENT_SECURITY",
+            "severity": "BLOCKING",
+            "rule": "Endpoints protegidos por autenticação, autorização por recurso, rate limiting e validação por schema.",
+            "validator": "/vitalia-task-verifier"
+          },
+          "P15": {
+            "name": "Observability & Structured Logging",
+            "domain": "OBSERVABILITY",
+            "severity": "WARNING",
+            "rule": "Structured logging obrigatório em serviços críticos e telemetria centralizada.",
+            "validator": "manual"
+          },
+          "P16": {
+            "name": "Artifact Integrity & Mermaid Defensive Programming",
+            "domain": "INFRASTRUCTURE",
+            "severity": "WARNING",
+            "rule": "Edições atômicas e íntegras; labels Mermaid protegidos com aspas duplas.",
+            "validator": "maintenance/header_stamp.py"
+          }
+        }
+      }
+    },
+    "phase_guardrails": {
+      "phase": "session-consolidate",
+      "role": "Guardião de Consolidação de Contexto e Pipeline 1A/2A",
+      "mandatory_checks": [
+        "Respeitar a topologia de 3 camadas mantendo .agents/skills/ puro durante a execução.",
+        "Persistir artefatos de runtime via escrita atômica.",
+        "Operar fluxo 1A (Motor na máquina para nuvem unidirecional) e 2A (navegação em 2 níveis) sem tocar grounding-domains.jsonl diretamente."
+      ]
+    },
+    "phase_profiles": {},
+    "active_domain_gates": [],
+    "session_context": {
+      "active_feature": ""
+    },
+    "env_summary": {
+      "status": "HEALTHY",
+      "project_root": "/home/andre/projetos/assistidos/vitalia-docs",
+      "kit_dir": "/home/andre/.vitalia-kit",
+      "kit_runtime": {
+        "kit_dir": "/home/andre/.vitalia-kit",
+        "python_bin": "/home/andre/.vitalia-kit/.venv/bin/python3",
+        "status": "HEALTHY"
+      },
+      "project_runtime": {
+        "project_root": "/home/andre/projetos/assistidos/vitalia-docs",
+        "has_venv": false,
+        "python_bin": null
+      },
+      "has_env": false,
+      "issues": [],
+      "context_cleanup": {
+        "total_files": 12,
+        "eligible_files": 9,
+        "eligible_bytes": 118696,
+        "needs_cleanup": false
+      }
+    },
+    "context_decisions": [
+      {
+        "category": "ARQUITETURA",
+        "decision": "Adotar Opção A em todos os 6 pontos de alinhamento com RASCUNHO_PORTAO_GROUNDING_P03.md mais correção obrigatória dos Achados Extras A (research.toml) e B (contrato de evidências P03), consolidando o pacote da Rodada 4 (Spec 008) em vitalia-docs antes de alterar source/.",
+        "rationale": "Preservar P01 (SDD Pipeline Inviolability) e entregar um pacote completo e visualmente refinado (grounding_audit_template.md + handoff-rodada-4-portao-p03-v0.0.1.md) para a Spec 008 no repositório vitalia-kit.",
+        "id": "a7ff3e58",
+        "type": "decision",
+        "timestamp": "25-11-2026 20:00:43(GMT-04:00)",
+        "machine_id": "72a556ad"
+      },
+      {
+        "id": "D-20261124-02",
+        "type": "decision",
+        "category": "ARQUITETURA",
+        "decision": "Descontinuar .vitalia/pipeline.json e .vitalia/pipe.json em definitivo; o transporte de estado em filesystem opera via data_storage/context/, data_storage/handoffs/ e payloads transitórios em .vitalia/.",
+        "rationale": "Nenhum script Python em src/ consome pipe.json ou pipeline.json; o controle de estado entre etapas já foi resolvido pelos envelopes de contexto e handoffs.",
+        "alternatives": [
+          "Unificar transport.file_path para .vitalia/pipeline.json nos 34 .toml"
+        ],
+        "machine_id": "72a556ad",
+        "timestamp": "24-11-2026 20:36(GMT-04:00)"
+      },
+      {
+        "id": "D-20261124-03",
+        "type": "decision",
+        "category": "ARQUITETURA",
+        "decision": "Erradicar .vitalia/session/data (zero tolerância), unificar renderização de dashboards em componente único orientado a templates (foco Rodada 3 no session_repo/README.md) e restringir GuardianContextV2 ao resgate direto de phase_guardrails e phase_profiles.",
+        "rationale": "Evitar inchaço de escopo na Rodada 3, garantindo primeiro o painel rico de sessão e a restauração estrutural de GuardianContextV2, deixando expansão de phase_profiles para spec futura.",
+        "alternatives": [
+          "Expandir phase_profiles para outros agentes e refatorar data_repo dashboard na mesma rodada"
+        ],
+        "machine_id": "72a556ad",
+        "timestamp": "24-11-2026 20:36(GMT-04:00)"
+      },
+      {
+        "id": "D-20261124-01",
+        "type": "decision",
+        "category": "ARQUITETURA",
+        "decision": "Formalizar ADR-0014 em MEMORANDO DE ARQUITETURA.md e congelar CONTRATOS_WORKFLOWS_SDD.md até a validação do Turno 2 sobre a versão corrigida do Vitalia Kit.",
+        "rationale": "Evitar retrabalho em manual de ~4.000 linhas enquanto a spec de correções estabiliza código, prompts e flags CLI.",
+        "alternatives": [
+          "Atualizar CONTRATOS_WORKFLOWS_SDD.md imediatamente antes das correções no código"
+        ],
+        "machine_id": "72a556ad",
+        "timestamp": "24-11-2026 10:21(GMT-04:00)"
+      }
+    ],
+    "context_learnings": [
+      {
+        "category": "KIT",
+        "learning": "A inspeção direta do código-fonte revelou defeitos invisíveis via --help: research.toml com prompt de Revisor Científico (recursão infinita) e incompatibilidade de nomes de campos entre evidence_record.schema.json, vitalia_grounding_validator.py --mode evidence e grounding_audit_renderer.py.",
+        "rationale": "Validar contratos reais lendo o código e schemas em conjunto evita falsos positivos de prontidão quando testes unitários mockam campos divergentes.",
+        "id": "44898aa7",
+        "type": "learning",
+        "timestamp": "25-11-2026 20:00:43(GMT-04:00)",
+        "machine_id": "72a556ad",
+        "source_origin": "('servido', '72a556ad')"
+      },
+      {
+        "id": "L-20261124-02",
+        "type": "learning",
+        "category": "KIT",
+        "learning": "Alterações em source/layers/ (gp_*.yaml, constitution/base.yaml, extensions/*.toml) são a única fonte de verdade compilada por vitalia_layer_compiler.py; editar profiles/ ou extensions/ compilados gera deriva, e achatar chaves (phase/role/guardrails sem phase_guardrails) silencia GuardianContextV2 com {}.",
+        "rationale": "Auditoria direta em git@github.com:andreticba/vitalia-kit.git e execução real do hook brainstorming.toml mostraram phase_guardrails: {} e phase_profiles: {} vazios no envelope.",
+        "machine_id": "72a556ad",
+        "timestamp": "24-11-2026 20:36(GMT-04:00)"
+      },
+      {
+        "id": "L-20261124-01",
+        "type": "learning",
+        "category": "KIT",
+        "learning": "A auditoria comparativa com kit_src, vitalia-kit/source e execução real em sandbox isolado revelou discrepâncias de caminhos (Camada 3), validadores ausentes em constitution.yaml e divergência entre CONTRATOS_WORKFLOWS_SDD.md e os TOMLs/GPs compilados.",
+        "rationale": "Testes executados diretamente no runtime isolado e com repositórios GitHub reais expõem falhas de integração (ex.: históricos Git divergentes e imports sem sys.path) invisíveis em testes unitários mockados.",
+        "machine_id": "72a556ad",
+        "timestamp": "24-11-2026 10:21(GMT-04:00)"
+      }
+    ],
+    "estimated_tokens": 1424,
+    "token_budget": 0
+  }
+}
