@@ -49,7 +49,7 @@
   "guardian_json": {
     "schema_version": "0.0.1",
     "workflow": "session-consolidate",
-    "timestamp": "25-11-2026 20:00:44(GMT-04:00)",
+    "timestamp": "27-11-2026 06:07:59(GMT-04:00)",
     "sources": {
       "constitution": {
         "schema_type": "constitution",
@@ -231,13 +231,51 @@
       "has_env": false,
       "issues": [],
       "context_cleanup": {
-        "total_files": 12,
-        "eligible_files": 9,
-        "eligible_bytes": 118696,
+        "total_files": 8,
+        "eligible_files": 7,
+        "eligible_bytes": 142623,
         "needs_cleanup": false
       }
     },
     "context_decisions": [
+      {
+        "category": "ARQUITETURA",
+        "decision": "Superar D-20261124-01 e consolidar CONTRATOS_WORKFLOWS_SDD.md como Oráculo Normativo de Estado-Alvo Pós-Specs 007–010 (34 TOMLs, 25 GPs, 34 schemas OpenAPI 3.0.3 integrais), vinculando-o aos handoffs das Specs 009 e 010.",
+        "rationale": "Permite que as próximas specs usem o manual atualizado como âncora básica de critérios de sucesso (SC-xxx) e paridade automatizada.",
+        "alternatives": [
+          "Manter CONTRATOS_WORKFLOWS_SDD.md congelado até o fim da Spec 010"
+        ],
+        "id": "a2271240",
+        "type": "decision",
+        "timestamp": "27-11-2026 06:07:40(GMT-04:00)",
+        "machine_id": "72a556ad"
+      },
+      {
+        "category": "ARQUITETURA",
+        "decision": "Dividir a evolução em Spec 009 (schemas novos, sdd_ambiguity_scorer.py determinístico com --resolve, vitalia_handoff.py por flags CLI, fechamento do fluxo 1A P03 N2/N3/N4/N5, indexação e limpeza da Camada 3) e Spec 010 (restauração declarativa dos 34 .toml, guardian.schemas, checklist Ponto 1 e fontes 6b/6c).",
+        "rationale": "Separar engenharia Python testável de curadoria declarativa de prompts evita specs inchadas e entrega funções determinísticas antes dos contratos que as invocam.",
+        "alternatives": [
+          "Spec única com todos os achados",
+          "Apenas N2-N5 na Spec 009"
+        ],
+        "id": "8a012998",
+        "type": "decision",
+        "timestamp": "26-11-2026 17:01:05(GMT-04:00)",
+        "machine_id": "72a556ad"
+      },
+      {
+        "category": "ARQUITETURA",
+        "decision": "O LLM deve manipular arquivos sempre ancorado em schemas: injetar guardian.schemas no envelope §11, preferir flags CLI determinísticas a edição manual de JSON e criar os schemas faltantes em OpenAPI 3.0.3 limpo.",
+        "rationale": "Reduz arbitrariedade do LLM, concentra cálculo e validação em Python fail-closed e mantém o LLM apenas no julgamento semântico.",
+        "alternatives": [
+          "Manter prompts descritivos sem schema",
+          "Validar apenas na saída"
+        ],
+        "id": "a27ce8d0",
+        "type": "decision",
+        "timestamp": "26-11-2026 17:01:05(GMT-04:00)",
+        "machine_id": "72a556ad"
+      },
       {
         "category": "ARQUITETURA",
         "decision": "Adotar Opção A em todos os 6 pontos de alinhamento com RASCUNHO_PORTAO_GROUNDING_P03.md mais correção obrigatória dos Achados Extras A (research.toml) e B (contrato de evidências P03), consolidando o pacote da Rodada 4 (Spec 008) em vitalia-docs antes de alterar source/.",
@@ -287,6 +325,56 @@
     "context_learnings": [
       {
         "category": "KIT",
+        "learning": "O manual CONTRATOS_WORKFLOWS_SDD.md anterior possuía blocos .toml não parseáveis por tomllib, escala divergente em ambiguity_scoring (75.0 vs 30.0 real) e omissão de gp_converge.yaml; validar o documento programaticamente contra tomllib, jsonschema e Guardrail G1 elimina deriva normativa.",
+        "rationale": "Garante que o manual sirva de oráculo direto para testes automatizados de paridade nas Specs 009 e 010.",
+        "id": "2207893f",
+        "type": "learning",
+        "timestamp": "27-11-2026 06:07:40(GMT-04:00)",
+        "machine_id": "72a556ad",
+        "source_origin": "('servido', '72a556ad')"
+      },
+      {
+        "category": "KIT",
+        "learning": "33 de 34 workflows não referenciam schemas e GuardianContextV2 não injeta schemas JSON no envelope §11; 14 workflows estão reduzidos a stubs de 8 linhas e 13 têm reads/writes vazios.",
+        "rationale": "Auditoria automatizada sobre extensions/*.toml compilados confrontada com CONTRATOS_WORKFLOWS_SDD.md mostrou que a compressão de prompts perdeu protocolos, comandos CLI e contratos de arquivos.",
+        "id": "9c50f07b",
+        "type": "learning",
+        "timestamp": "26-11-2026 17:01:05(GMT-04:00)",
+        "machine_id": "72a556ad",
+        "source_origin": "servido"
+      },
+      {
+        "category": "KIT",
+        "learning": "sdd_ambiguity_scorer.py usa json.loads em arquivos YAML, lê chaves inexistentes (weights/severity_multipliers) e vitalia_handoff.py create não aceita as flags usadas nos contratos; defeitos invisíveis a testes que usam fixtures próprias.",
+        "rationale": "Leitura do código confrontada com os contratos dos workflows e com os schemas reais revelou divergências que os testes unitários mockados não detectam.",
+        "id": "f8c30b8f",
+        "type": "learning",
+        "timestamp": "26-11-2026 17:01:05(GMT-04:00)",
+        "machine_id": "72a556ad",
+        "source_origin": "servido"
+      },
+      {
+        "category": "KIT",
+        "learning": "index.jsonl só é alimentado por vitalia_hook_runner (context/); scan_environment varre o disco enquanto vitalia_tmp_cleanup depende do índice, deixando arquivos órfãos sem limpeza.",
+        "rationale": "Comprovado em vitalia-docs: 15 .json físicos em context/ contra 12 entradas no index.jsonl.",
+        "id": "e83f3e72",
+        "type": "learning",
+        "timestamp": "26-11-2026 17:01:05(GMT-04:00)",
+        "machine_id": "72a556ad",
+        "source_origin": "servido"
+      },
+      {
+        "category": "PROJETO",
+        "learning": "Specs grandes degradam a qualidade; dividir em Spec 009 (código Python determinístico e schemas) e Spec 010 (contratos declarativos .toml/catálogos) preserva a maturidade do MVP.",
+        "rationale": "Orientação explícita do usuário após a degradação observada nos turnos anteriores por excesso de escopo.",
+        "id": "92d4cb16",
+        "type": "learning",
+        "timestamp": "26-11-2026 17:01:05(GMT-04:00)",
+        "machine_id": "72a556ad",
+        "source_origin": "servido"
+      },
+      {
+        "category": "KIT",
         "learning": "A inspeção direta do código-fonte revelou defeitos invisíveis via --help: research.toml com prompt de Revisor Científico (recursão infinita) e incompatibilidade de nomes de campos entre evidence_record.schema.json, vitalia_grounding_validator.py --mode evidence e grounding_audit_renderer.py.",
         "rationale": "Validar contratos reais lendo o código e schemas em conjunto evita falsos positivos de prontidão quando testes unitários mockam campos divergentes.",
         "id": "44898aa7",
@@ -314,7 +402,7 @@
         "timestamp": "24-11-2026 10:21(GMT-04:00)"
       }
     ],
-    "estimated_tokens": 1424,
+    "estimated_tokens": 2130,
     "token_budget": 0
   }
 }
